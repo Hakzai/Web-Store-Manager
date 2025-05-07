@@ -6,11 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.akeir.webstore.mngr.model.Author;
-import com.akeir.webstore.mngr.model.Book;
-import com.akeir.webstore.mngr.repository.AuthorRepository;
-import com.akeir.webstore.mngr.repository.BookRepository;
-
 @Component
 public class DatabaseInitializer implements CommandLineRunner{
 
