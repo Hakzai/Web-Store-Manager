@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/orders")
-@Tag(name = "Author Controller", description = "Supports operations: list, create, edit, find by id, list by status, list by creation date, list by value, delete")
+@Tag(name = "Order Controller", description = "Supports operations: list, create, edit, find by id, list by status, list by creation date, list by value, delete")
 @ApiResponses(value = { 
 		@ApiResponse(responseCode = "200", description = "Success"),
 		@ApiResponse(responseCode = "401", description = "Not authenticated", content = @Content(mediaType = "application/json")),
@@ -51,50 +50,65 @@ public class OrderController {
     	return ResponseEntity.ok(orderService.getAllOrders());
     }
     
-    //TODO: IMPLEMENT LISTING BY STATUS
-    //TODO: IMPLEMENT LISTING BY CREATION DATE
-    //TODO: IMPLEMENT LISTING BY VALUE
+    @GetMapping("/listByStatus/{status}")
+    @Operation(summary = "List Orders by status", description = "Search and retrieves all orders by given status")
+    public List<Order> getOrdersByStatus(@PathVariable String status)
+    {
+    	return orderService.getAllOrdersByStatus(status.toUpperCase());
+    }
     
-    //TODO: IMPLEMENT
+    @GetMapping("/listByDate/{creationDate}")
+    @Operation(summary = "List Orders by date", description = "Search and retrieves all orders by given date")
+    public List<Order> getOrdersByCreationDate(@PathVariable String creationDate)
+    {
+    	return orderService.getAllOrdersByCreationDate(creationDate);
+    }
+    
+    @GetMapping("/listByTotalPrice/{total}")
+    @Operation(summary = "List Orders by total price amount", description = "Search and retrieves all orders for maximum given value")
+    public List<Order> getOrdersByCreationDate(@PathVariable Double total)
+    {
+    	return orderService.getAllOrdersByTotal(total);
+    }
+    
 	@GetMapping("/find/{id}")
-	@Operation(summary = "Find Author By Id", description = "Search and retrieve Author for corresponding Id")
-	public Order findById(@PathVariable Integer id)
+	@Operation(summary = "Find Order By Id", description = "Search and retrieve Order for corresponding Id")
+	public Order findById(@PathVariable Long id)
 	{
-//		return authorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("ENTITY NOT FOUND FOR ID " + id));
-		return null;
+		return orderService.findOrder(id);
 	}
     
     @PostMapping("/create")
+    @Operation(summary = "Create Orders", description = "This is for creating Orders")
     public ResponseEntity<Order> createOrder(@RequestBody Order order) 
     {
         orderService.createProducts(order);
         orderService.createOrder(order);
         orderService.updateProductsRefIds(order);
-    	orderService.sendOrder(order);
+        // TEMP DISABLED KAFKA TO TEST ONLY DB
+//    	orderService.sendOrder(order);
     	
     	return ResponseEntity.ok(order);
     }
     
-    //TODO: IMPLEMENT
 	@PostMapping("/update")
-	@Operation(summary = "Edit Authors", description = "Will edit and save Authors. If Author Id is not sent on the request, it will return error.")
-	public Order update(@RequestBody Order order)
+	@Operation(summary = "Edit Orders", description = "Will edit and save Orders. If Order Id is not sent on the request, it will return error.")
+	public ResponseEntity<Order> updateOrder(@RequestBody Order order)
 	{
-//		if(author.getName().isEmpty())
-//		{
-//			throw new InputMismatchException("ONE OR MORE INPUTS ARE WRONG");
-//		}
-//		
-//		findById(author.getId());
-//		return authorRepository.save(author);
-		return null;
+		if(null == order.getId() || order.getId().toString().isEmpty())
+		{
+			throw new InputMismatchException("ONE OR MORE INPUTS ARE WRONG");
+		}
+		
+		orderService.updateOrder(order);
+		
+		return ResponseEntity.ok(order);
 	}
     
-	//TODO: IMPLEMENT
 	@DeleteMapping("/delete/{id}")
-	@Operation(summary = "Delete Authors", description = "Will delete Author for given Id. If Author does not exist, will not return error.")
-	public void delete(@PathVariable Integer id)
+	@Operation(summary = "Delete Order", description = "Will delete Order for given Id. If Order does not exist, will not return error.")
+	public void delete(@PathVariable Long id)
 	{
-//		authorRepository.deleteById(id);
+		orderService.deleteOrder(id);
 	}
 }
