@@ -10,52 +10,44 @@ The orders and its products can be integrated t be available to be retrieved and
 
 ## Requirements:
 
-Requisitos Funcionais
-1. Gerenciamento de Pedidos:
-   - CRUD completo para pedidos (criação, leitura, atualização, exclusão).
-   - Listagem de pedidos com filtros por status, data de criação e valor.
-   - Consulta detalhada de um pedido, incluindo produtos, quantidades, valores e status.
+1. Order management:
+- Complete CRUD operations for ordering.
+- Listing and filter by status, creation date and value amount.
+- Detailed query result for a given order including products, quantity, values and status.
 
-2. Gerenciamento de Produtos:
-   - CRUD de produtos associados aos pedidos.
-   - Consultas detalhadas dos produtos com informações como preço, descrição, e categoria.
-   - Filtros de produtos por nome, categoria e preço.
+2. Products management:
+- Complete CRUD operations for the products.
+- Listing and filter by name, category and prices.
+- Detailed query result for given products with price, description and category infos.
 
-3. Integração de Pagamentos:
-   - Gerenciar diferentes formas de pagamento (cartão de crédito, boleto, transferência bancária).
+3. Payment/Incoming Integration:
+- Manage different payment details and ways (credit and debit cards, direct billing, bank transfer, PIX).
 
-4. Autenticação e Autautenticação via Spring Security.
-   - Diferentes perfis de usuário (Admin, Cliente, Operador).
-   - Controle de acessos baseado em permissões (ex: apenas admins podem excluir pedidos).- orização:
-   - Implementar 
+4. Authentication with Spring Security.
+- Create different users and roles (Admin, Customer, Operator/CSR).
+- Access control based on permissions/roles (e.g: only admins can delete orders).
 
-5. Cálculo de Preços:
-   - Implementar cálculo de total do pedido com base nos produtos adicionados, aplicando descontos e taxas (ex: frete).
-   - Recalcular o valor do pedido ao alterar a quantidade de itens.
+5. Price calculating:
+- Implement ordering total amount based on added products, applying discounts and taxes (ex: courier charge).
+- Calculate new order value when changing the items quantity.
 
-6. Relatórios: (Opcional)
-   - Gerar relatórios de vendas mensais, diários ou por período customizado.
-   - Relatórios de pedidos por status (concluído, pendente, cancelado).
-
-8. Documentação:
-   - Gerar documentação automática da API utilizando Swagger/OpenAPI.
-
-#### Requisitos Não-Funcionais
-1. Segurança:
-   - A aplicação deve ser usado o spring security.
-
-2. Testes: (Opcional mas contará bastante)
-   - Testes unitários para cada componente utilizando JUnit e Mockito.
-   - Testes de integração para garantir o funcionamento correto entre os diferentes módulos do sistema.
-   - Testes de carga e performance.
+6. Documentation:
+- Create automatic API documentation using Swagger/OpenAPI.
 
 **Extra-Points Requirements:**
-- Check for duplicated orders;
-- Garantee the service availability even with high volume of orders (from 150k to 200k per day);
-- Have data consistency and allow concurrency;
-- Check if the high volume can cause database bottleneck and how to avoid it. 
+1. Tests:
+- Unit Testing for each component using JUnit and Mockito.
+- Integration Testing to ensure proper functionalities between different system modules.
+- Performance and Load/Overload Testing.
 
-## Technology Requirements
+2. Reports (Optional)
+- Create selling reports (monthly, daily or custom date).
+- Create status ordering reports (finished, pending, canceled).   
+
+3. CI/CD Process Implementation
+- Complete automated deployment process
+
+## Technology Requirements (Summary)
 
 **Back-end**
 - Write the required API with Java 17+;
@@ -73,44 +65,65 @@ Requisitos Funcionais
 **Versioning:**
 - Versioning: Git (GitHub/GitLab).
 
+## Project Roadmap
 
-## Roadmap
+* [X]  Code with Java 17+
+* [ ]  Create the API using Spring Boot Framework
+    * [X]  Order Management
+    * [X]  Product Management
+    * [X]  MVC Layer Architecture
+    * [ ]  Payment Integrations
+    * [ ]  Pricing Calculating after creation/updating
+* [X]  Use a relational persistance database 
+    * [X]  MySQL running on WAMPP server
+* [ ]  Security layers
+    * [X]  Implement Spring Security framework
+    * [ ]  Create Users and Roles (Admin, Customer, Operator/CSR).
+* [ ]  API Documentation 
+    * [ ]  With OpenAPI
+* [X]  Version Control on Git
+    * [X]  Published on GitHub
 
-* [X]  Create the API using Spring Boot Framework
-* [X]  Layer Architecture (using MVC)
-* [X]  Use a relational persistance database (using MySQL running on WAMPP server)
-* [X]  API Documentation with Swagger
-* []  App monitoring with Actuator
-* [X]  Published on GitHub
+**Extras**
+* [ ]  App Testing and Automation
+    * [ ]  Unit Testing components using JUnit/Mockito.
+    * [ ]  Integration Testing between different system modules.
+    * [ ]  Performance and Load/Overload Testing.
+* [ ]  App Monitoring
+    * [ ]  With Actuator
+* [ ]  Reporting/Summary Mechanism
+* [ ]  CI/CD Automated Processes
+* [ ]  Messaging Handling with Kafka/RabbitMQ
 
 ## Deliverables
 * [X] Complete Source code at GitHub/GitLab
-* [] API Technical documents
-* [] Unit tests Reports
+* [ ] API Technical documents
+* [ ] Unit tests Reports
 * [X] Installing and integration instructions
-* [] CI/CD Implementation (Extra Points for implementation)
+* [ ] CI/CD Implementation
 
 ## Installing
 
-Project is managed with maven. POM file is inside project.
+To build and run Project please refer to **[INSTALL-GUIDE](https://github.com/Hakzai/Web-Store-Manager/blob/master/INSTALL-GUIDE.md)**
 
-It was written using:
-* [X] OpenJDK 23.0.1
-* [X] Spring Boot 3.4.2
-* [X] Apache Maven 3.9.9
-* [X] Apache Tomcat 9.0.96
-* [] Apache Kafka 3.9.0
-* [] Docker version 27.5.1
-* [X] MySQL 8.0.18
-_Unmarked technologies are yet to be implemented_
+# Project Technologies Signature
+- OpenJDK 23.0.1
+- Spring Boot 3.3.4
+- Spring Security Web 6.3.3
+- JUnit 5.10.3
+- Open API 2.3.0
+- Apache Maven 3.9.9
+- Apache Tomcat Embed 10.1.30
+- Apache Kafka 3.9.0
+- Docker version 27.5.1
+- MySQL 8.0.18
+- Git 2.47
 
-To build and run make sure you're using same versions (or higher, with compatibility).
-
-Personal tools setup:
+# Personal Tools Setup:
 - Spring Tool Suite 4.25.0
 - WAMPP Server 3.2.2.2
 - Postman Portable Version 8.5.1
 
 ## Author
 
-Project done by Isaac Alencar (Akeir Technology)
+Project done by _Isaac Alencar (Akeir Technology)_
