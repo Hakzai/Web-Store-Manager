@@ -66,7 +66,7 @@ public class OrderController {
     
     @GetMapping("/listByTotalPrice/{total}")
     @Operation(summary = "List Orders by total price amount", description = "Search and retrieves all orders for maximum given value")
-    public List<Order> getOrdersByCreationDate(@PathVariable Double total)
+    public List<Order> getOrdersByTotalPrice(@PathVariable Double total)
     {
     	return orderService.getAllOrdersByTotal(total);
     }
@@ -86,13 +86,13 @@ public class OrderController {
         orderService.createOrder(order);
         orderService.updateProductsRefIds(order);
         // TEMP DISABLED KAFKA TO TEST ONLY DB
-//    	orderService.sendOrder(order);
+        // orderService.sendOrder(order);
     	
     	return ResponseEntity.ok(order);
     }
     
 	@PostMapping("/update")
-	@Operation(summary = "Edit Orders", description = "Will edit and save Orders. If Order Id is not sent on the request, it will return error.")
+	@Operation(summary = "Update Orders", description = "Will edit and save Orders. If Order Id is not sent on the request, it will return error.")
 	public ResponseEntity<Order> updateOrder(@RequestBody Order order)
 	{
 		if(null == order.getId() || order.getId().toString().isEmpty())

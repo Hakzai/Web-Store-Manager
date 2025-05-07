@@ -10,6 +10,8 @@ import com.akeir.webstore.mngr.model.Order;
 import com.akeir.webstore.mngr.model.Product;
 import com.akeir.webstore.mngr.repository.ProductRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class ProductService {
 
@@ -32,8 +34,39 @@ public class ProductService {
 		}
 	}
 	
+	public Product updateProduct(Product product)
+	{
+		findProduct(product.getId());
+		return productRepository.save(product);
+	}
+	
 	public List<Product> getAllProducts()
 	{
 		return productRepository.findAll();
+	}
+	
+	public List<Product> getAllProductsByName(String name) 
+	{
+		return productRepository.findAllByName(name);
+	}
+
+	public List<Product> getAllProductsByCategory(String category) 
+	{
+		return productRepository.findAllByCategory(category);
+	}
+
+	public List<Product> getAllProductsByPrice(Double price) 
+	{
+		return productRepository.findAllByPrice(price);
+	}
+
+	public Product findProduct(long id) 
+	{
+		return productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("ENTITY NOT FOUND FOR ID " + id));
+	}
+
+	public void deleteProduct(Long id) 
+	{
+		productRepository.deleteById(id);
 	}
 }

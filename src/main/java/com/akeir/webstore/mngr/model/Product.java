@@ -96,7 +96,7 @@ public class Product {
 		this.category = category;
 	}
 
-	public Long getOrderRef() 
+	public Long getOrderRefId() 
 	{
 		return orderReferenceId;
 	}

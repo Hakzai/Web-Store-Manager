@@ -3,8 +3,6 @@ package com.akeir.webstore.mngr.controller;
 import java.util.InputMismatchException;
 import java.util.List;
 
-import javax.management.OperationsException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +22,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/products")
@@ -53,56 +50,58 @@ public class ProductController {
 	}
 	
 	@GetMapping("/list")
+	@Operation(summary = "List Products", description = "Search and retrieves all Products")
 	public ResponseEntity<List<Product>> getAllProducts()
 	{
 		return ResponseEntity.ok(productService.getAllProducts());
 	}
 	
-	//TODO: IMPLEMENT LIST BY NAME
-	//TODO: IMPLEMENT LIST BY CATEGORY
-	//TODO: IMPLEMENT LIST BY PRICE
+    @GetMapping("/listByName/{name}")
+    @Operation(summary = "List Products by name", description = "Search and retrieves all products by given name")
+    public List<Product> getProductsByName(@PathVariable String name)
+    {
+    	return productService.getAllProductsByName(name);
+    }
+    
+    @GetMapping("/listByCategory/{category}")
+    @Operation(summary = "List Products by date", description = "Search and retrieves all products by given category")
+    public List<Product> getProductsByCategory(@PathVariable String category)
+    {
+    	return productService.getAllProductsByCategory(category);
+    }
+    
+    @GetMapping("/listByPrice/{price}")
+    @Operation(summary = "List Products by unit price", description = "Search and retrieves all products for maximum given price")
+    public List<Product> getProductsByPrice(@PathVariable Double price)
+    {
+    	return productService.getAllProductsByPrice(price);
+    }
 	
-	//TODO: IMPLEMENT
 	@GetMapping("/find/{id}")
-	@Operation(summary = "Find Product By Id", description = "Search and retrieve book for corresponding Id")
-	public Product findById(@PathVariable Integer id)
+	@Operation(summary = "Find Product By Id", description = "Search and retrieve product for corresponding Id")
+	public Product findById(@PathVariable Long id)
 	{
-//		return bookRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("ENTITY NOT FOUND FOR ID " + id));
-		return null;
+		return productService.findProduct(id);
 	}
 	
-	//TODO: IMPLEMENT
-	@PostMapping("/create")
-	@Operation(summary = "Create Products", description = "Will create and save Products. Product Ids are auto incremented so if Id is sent on the request, it will return error. "
-			+ "Author Ids are mandatory, in case they are not sent, it will return error. Author name can be ignored, it'll be mapped through Id")
-	public Product create(@RequestBody Product book) throws OperationsException
+	@PostMapping("/update")
+	@Operation(summary = "Update Product", description = "Will edit and save Products. If Product Id is not sent on the request, it will return error. Order Ids are also mandatory.")
+	public ResponseEntity<Product> updateProduct(@RequestBody Product product)
 	{
-//		if(book.getId() != null) throw new OperationsException("WRONG OPERATION. USE EDIT FOR SAVING EXISTING ENTITY");
-//		
-//		return bookRepository.save(book);
-		return null;
+		if(String.valueOf(product.getId()).isEmpty() || String.valueOf(product.getOrderRefId()).isEmpty())
+		{
+			throw new InputMismatchException("ONE OR MORE INPUTS ARE WRONG");
+		}
+		
+		productService.updateProduct(product);
+		
+		return ResponseEntity.ok(product);
 	}
 	
-	//TODO: IMPLEMENT
-	@PostMapping("/edit")
-	@Operation(summary = "Edit Products", description = "Will edit and save Products. If Product Id is not sent on the request, it will return error. Author Ids are also mandatory.")
-	public Product edit(@RequestBody Product book)
-	{
-//		if(book.getTitle().isEmpty() || book.getPublisher().isEmpty())
-//		{
-//			throw new InputMismatchException("ONE OR MORE INPUTS ARE WRONG");
-//		}
-//		
-//		findById(book.getId());
-//		return bookRepository.save(book);
-		return null;
-	}
-	
-	//TODO: IMPLEMENT
 	@DeleteMapping("/delete/{id}")
-	@Operation(summary = "Delete Products", description = "Will delete book for given Id. If book does not exist, will not return error.")
-	public void delete(@PathVariable Integer id)
+	@Operation(summary = "Delete Product", description = "Will delete product for given Id. If product does not exist, will not return error.")
+	public void delete(@PathVariable Long id)
 	{
-//		bookRepository.deleteById(id);
+		productService.deleteProduct(id);
 	}
 }
