@@ -106,7 +106,7 @@ The orders and its products can be integrated t be available to be retrieved and
 
 To build and run Project please refer to **[INSTALL-GUIDE](https://github.com/Hakzai/Web-Store-Manager/blob/master/INSTALL-GUIDE.md)**
 
-# Project Technologies Signature
+### Project Technologies Signature
 - OpenJDK 23.0.1
 - Spring Boot 3.3.4
 - Spring Security Web 6.3.3
@@ -119,9 +119,9 @@ To build and run Project please refer to **[INSTALL-GUIDE](https://github.com/Ha
 - MySQL 8.0.18
 - Git 2.47
 
-# Personal Tools Setup:
+### Personal Tools Setup:
 - Spring Tool Suite 4.25.0
-- WAMPP Server 3.2.2.2
+- WAMP Server 3.2.2.2
 - Postman Portable Version 8.5.1
 
 ## Author
