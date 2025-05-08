@@ -35,6 +35,3 @@ build/
 ### MVN ###
 .mvn/
 mvn*
-
-### TMP IGNORE
-docs/

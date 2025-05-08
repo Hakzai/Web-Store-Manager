@@ -68,19 +68,19 @@ The orders and its products can be integrated t be available to be retrieved and
 ## Project Roadmap
 
 * [X]  Code with Java 17+
-* [ ]  Create the API using Spring Boot Framework
+* [X]  Create the API using Spring Boot Framework
     * [X]  Order Management
     * [X]  Product Management
     * [X]  MVC Layer Architecture
     * [ ]  Payment Integrations
-    * [ ]  Pricing Calculating after creation/updating
+    * [X]  Pricing Calculating after creation/updating
 * [X]  Use a relational persistance database 
     * [X]  MySQL running on WAMPP server
 * [ ]  Security layers
     * [X]  Implement Spring Security framework
     * [ ]  Create Users and Roles (Admin, Customer, Operator/CSR).
-* [ ]  API Documentation 
-    * [ ]  With OpenAPI
+* [X]  API Documentation 
+    * [X]  With OpenAPI
 * [X]  Version Control on Git
     * [X]  Published on GitHub
 
@@ -97,7 +97,7 @@ The orders and its products can be integrated t be available to be retrieved and
 
 ## Deliverables
 * [X] Complete Source code at GitHub/GitLab
-* [ ] API Technical documents
+* [X] API Technical documents
 * [ ] Unit tests Reports
 * [X] Installing and integration instructions
 * [ ] CI/CD Implementation

@@ -34,5 +34,11 @@ Please be attempt to Technologies used on this project.
 - Download and install WAMP Server (or other MySQL supported server) and set it to port 3308
 - Run the server and create database named 'webstore' on it
 - After all setup you just need to create the jar to run the app. Create it using 'mvn clean install' command at project root folder
-- When the build finishes, open the target folder and start the app with command 'java -jar webstore-x.x.x.jar' (being 'x' the number related to version)
-- If you want it, it is possible to run through IDEs like STS (which is mentioned on personal tools)
+    - When the build finishes, open the target folder and start the app with command 'java -jar webstore-x.x.x.jar' (being 'x' the number related to version)
+    - If you want it, it is possible to run through IDEs like STS (which is mentioned on personal tools)
+- When server and start are up you can refer to [Open-API Doc](http://localhost:8080/swagger-ui/index.html) for APIs details or try the api-docs files at ~/docs/ path.
+    - Initial standard user to access it is: docreader | docreader
+    - To use external apps calling you can use default SA user: sysadm | sysadm
+    - As an example, you can use this validated payload as your first order placement 
+        _{"customerName": "Joao da Mercearia", "items": [{"name": "Papel Higienico", "unitPrice": 15.0, "orderedQuantity": 15, "description": "Papel Higienico da marca Neve", "category": "Higiene" }], registerDate": "2025-05-01T04:57:59", "status": "PENDING" }_
+- After creating the first order, try using other APIs to check functionalities.
