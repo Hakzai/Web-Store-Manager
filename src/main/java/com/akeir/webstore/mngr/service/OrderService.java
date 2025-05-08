@@ -46,7 +46,9 @@ public class OrderService {
     public Order updateOrder(Order order)
     {
     	findOrder(order.getId());
-    	return orderRepository.save(order);
+    	createOrder(order);
+    	productService.saveProducts(order);
+    	return order;
     }
 
 	public List<Order> getAllOrders() 
